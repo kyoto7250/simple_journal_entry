@@ -32,6 +32,7 @@ type Account {
   elementType: Int!
   id: ID!
   name: String!
+  user_id: ID!
 }
 
 type DeleteAccountPayload {
@@ -67,6 +68,7 @@ type Mutation {
 
 type Query {
   allAccounts: [Account!]!
+  allAccountsByUserID(user_id: ID!): [Account!]!
   allJournals: [Journal!]!
   allUsers: [User!]!
 }
