@@ -5,4 +5,5 @@ data class Account(
     val code: String,
     val name: String,
     val elementType: Int,
+    val user_id: Long = 0
 )
