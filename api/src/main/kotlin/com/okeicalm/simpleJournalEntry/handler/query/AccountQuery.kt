@@ -1,5 +1,5 @@
 package com.okeicalm.simpleJournalEntry.handler.query
-
+import com.expediagroup.graphql.generator.scalars.ID
 import com.expediagroup.graphql.server.operations.Query
 import com.okeicalm.simpleJournalEntry.handler.type.AccountType
 import com.okeicalm.simpleJournalEntry.repository.AccountRepository
@@ -11,7 +11,7 @@ class AccountQuery(private val repository: AccountRepository) : Query {
         return repository.findAll().map { AccountType(it) }
     }
 
-    fun allAccountsByUserID(user_id: Long): List<AccountType> {
-        return repository.findAllByUserID(user_id).map { AccountType(it) }
+    fun allAccountsByUserID(user_id: ID): List<AccountType> {
+        return repository.findAllByUserID(user_id.toString().toLong()).map { AccountType(it) }
     }
 }
