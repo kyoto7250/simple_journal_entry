@@ -34,5 +34,6 @@ val KEY_USERS_PRIMARY: UniqueKey<UsersRecord> = Internal.createUniqueKey(Users.U
 // FOREIGN KEY definitions
 // -------------------------------------------------------------------------
 
+val USER_ID: ForeignKey<AccountsRecord, UsersRecord> = Internal.createForeignKey(Accounts.ACCOUNTS, DSL.name("user_id"), arrayOf(Accounts.ACCOUNTS.USER_ID), com.okeicalm.simpleJournalEntry.infra.db.keys.KEY_USERS_PRIMARY, arrayOf(Users.USERS.ID), true)
 val JOURNAL_ENTRIES_IBFK_1: ForeignKey<JournalEntriesRecord, JournalsRecord> = Internal.createForeignKey(JournalEntries.JOURNAL_ENTRIES, DSL.name("journal_entries_ibfk_1"), arrayOf(JournalEntries.JOURNAL_ENTRIES.JOURNAL_ID), com.okeicalm.simpleJournalEntry.infra.db.keys.KEY_JOURNALS_PRIMARY, arrayOf(Journals.JOURNALS.ID), true)
 val JOURNAL_ENTRIES_IBFK_2: ForeignKey<JournalEntriesRecord, AccountsRecord> = Internal.createForeignKey(JournalEntries.JOURNAL_ENTRIES, DSL.name("journal_entries_ibfk_2"), arrayOf(JournalEntries.JOURNAL_ENTRIES.ACCOUNT_ID), com.okeicalm.simpleJournalEntry.infra.db.keys.KEY_ACCOUNTS_PRIMARY, arrayOf(Accounts.ACCOUNTS.ID), true)
