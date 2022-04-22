@@ -5,7 +5,7 @@ import com.okeicalm.simpleJournalEntry.repository.AccountRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-data class AccountCreateUseCaseInput(val code: String, val name: String, val elementType: Int)
+data class AccountCreateUseCaseInput(val code: String, val name: String, val elementType: Int, val user_id: Long)
 data class AccountCreateUseCaseOutput(val account: Account)
 
 interface AccountCreateUseCase{
@@ -19,7 +19,8 @@ class AccountCreateUseCaseImpl(private val accountRepository: AccountRepository)
         val account = Account(
             code = input.code,
             name = input.name,
-            elementType = input.elementType
+            elementType = input.elementType,
+            user_id = input.user_id
         )
         return AccountCreateUseCaseOutput(accountRepository.create(account))
     }
