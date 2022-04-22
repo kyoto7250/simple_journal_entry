@@ -56,7 +56,7 @@ class AccountRepositoryImpl(private val dslContext: DSLContext) : AccountReposit
             .set(Accounts.ACCOUNTS.CODE, account.code)
             .set(Accounts.ACCOUNTS.NAME, account.name)
             .set(Accounts.ACCOUNTS.ELEMENT_TYPE, account.elementType)
-            .where(Accounts.ACCOUNTS.ID.eq(account.id))
+            .where(Accounts.ACCOUNTS.ID.eq(account.id), Accounts.ACCOUNTS.USER_ID.eq(account.user_id))
             .execute()
         return account
     }
