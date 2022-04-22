@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository
 
 interface AccountRepository {
     fun findAll(): List<Account>
-    fun findAllByUserID(user_id: Long): List<Account>
+    fun findByUserID(user_id: Long): List<Account>
     fun findById(id: Long): Account?
     fun create(account: Account): Account
     fun update(account: Account): Account
@@ -23,7 +23,7 @@ class AccountRepositoryImpl(private val dslContext: DSLContext) : AccountReposit
             .into(Account::class.java)
     }
 
-    override fun findAllByUserID(user_id: Long): List<Account> {
+    override fun findByUserID(user_id: Long): List<Account> {
         return dslContext.select()
         .from(Accounts.ACCOUNTS)
         .where(Accounts.ACCOUNTS.USER_ID.eq(user_id))
