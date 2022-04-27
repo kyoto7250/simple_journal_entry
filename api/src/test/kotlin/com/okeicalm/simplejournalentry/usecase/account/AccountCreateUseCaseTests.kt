@@ -17,8 +17,8 @@ class AccountCreateUseCaseTests : DescribeSpec({
     }
 
     describe("call") {
-        val input = AccountCreateUseCaseInput("code", "name", 1)
-        val account = Account(code = "code", name = "name", elementType = 1)
+        val input = AccountCreateUseCaseInput("code", "name", 1, userId = 1)
+        val account = Account(code = "code", name = "name", elementType = 1, userId = 1)
 
         every { repository.create(account) } returns account.copy(id = 1)
         every { repository.findById(1) } returns account.copy(id = 1)

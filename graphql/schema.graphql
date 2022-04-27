@@ -32,37 +32,71 @@ type Account {
   elementType: Int!
   id: ID!
   name: String!
+  userId: ID!
 }
 
 type DeleteAccountPayload {
   deletedAccount: Account
 }
 
+type DeleteUserPayload {
+  deletedUser: User
+}
+
 type Journal {
   id: ID!
-  journalEntries: [JournalEntry!]!
+  journalEntries: [JournalEntry!]
 }
 
 type JournalEntry {
+  accountId: ID!
   id: ID!
+  journalId: ID!
   side: Int!
   value: Int!
 }
 
 type Mutation {
   createAccount(input: CreateAccountInput!): Account!
+  createJournal(input: CreateJournalInput!): Journal!
+  createUser(input: CreateUserInput!): User!
   deleteAccount(input: DeleteAccountInput!): DeleteAccountPayload!
+  deleteUser(input: DeleteUserInput!): DeleteUserPayload!
   updateAccount(input: UpdateAccountInput!): Account!
+  updateUser(input: UpdateUserInput!): User!
 }
 
 type Query {
+  accountsByUserID(userId: ID!): [Account!]!
   allAccounts: [Account!]!
   allJournals: [Journal!]!
+  allUsers: [User!]!
+}
+
+type User {
+  id: ID!
+  name: String!
 }
 
 input CreateAccountInput {
   code: String!
   elementType: Int!
+  name: String!
+  userId: ID!
+}
+
+input CreateJournalEntryInput {
+  accountID: ID!
+  side: Int!
+  value: Int!
+}
+
+input CreateJournalInput {
+  createJournalEntryInput: [CreateJournalEntryInput!]!
+  incurredOn: Int!
+}
+
+input CreateUserInput {
   name: String!
 }
 
@@ -70,9 +104,19 @@ input DeleteAccountInput {
   id: ID!
 }
 
+input DeleteUserInput {
+  id: ID!
+}
+
 input UpdateAccountInput {
   code: String!
   elementType: Int!
+  id: ID!
+  name: String!
+  userId: ID!
+}
+
+input UpdateUserInput {
   id: ID!
   name: String!
 }

@@ -5,7 +5,7 @@ import com.okeicalm.simpleJournalEntry.repository.AccountRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-data class AccountUpdateUseCaseInput(val id: Long, val code: String, val name: String, val elementType: Int)
+data class AccountUpdateUseCaseInput(val id: Long, val code: String, val name: String, val elementType: Int, val userId: Long)
 data class AccountUpdateUseCaseOutput(val account: Account)
 
 interface AccountUpdateUseCase {
@@ -20,7 +20,8 @@ class AccountUpdateUseCaseImpl(private val accountRepository: AccountRepository)
             id = input.id,
             code = input.code,
             name = input.name,
-            elementType = input.elementType
+            elementType = input.elementType,
+            userId = input.userId
         )
 
         return AccountUpdateUseCaseOutput(accountRepository.update(account))

@@ -16,7 +16,7 @@ import org.jooq.ForeignKey
 import org.jooq.Identity
 import org.jooq.Name
 import org.jooq.Record
-import org.jooq.Row4
+import org.jooq.Row5
 import org.jooq.Schema
 import org.jooq.Table
 import org.jooq.TableField
@@ -82,6 +82,11 @@ open class Accounts(
      */
     val ELEMENT_TYPE: TableField<AccountsRecord, Int?> = createField(DSL.name("element_type"), SQLDataType.INTEGER.nullable(false), this, "")
 
+    /**
+     * The column <code>simple_journal_entry_db.accounts.user_id</code>.
+     */
+    val USER_ID: TableField<AccountsRecord, Long?> = createField(DSL.name("user_id"), SQLDataType.BIGINT.nullable(false), this, "")
+
     private constructor(alias: Name, aliased: Table<AccountsRecord>?): this(alias, null, null, aliased, null)
     private constructor(alias: Name, aliased: Table<AccountsRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, aliased, parameters)
 
@@ -107,6 +112,15 @@ open class Accounts(
     override fun getIdentity(): Identity<AccountsRecord, Long?> = super.getIdentity() as Identity<AccountsRecord, Long?>
     override fun getPrimaryKey(): UniqueKey<AccountsRecord> = KEY_ACCOUNTS_PRIMARY
     override fun getUniqueKeys(): List<UniqueKey<AccountsRecord>> = listOf(KEY_ACCOUNTS_CODE)
+    override fun getReferences(): List<ForeignKey<AccountsRecord, *>> = listOf(com.okeicalm.simpleJournalEntry.infra.db.keys.USER_ID)
+
+    private lateinit var _users: Users
+    fun users(): Users {
+        if (!this::_users.isInitialized)
+            _users = Users(this, com.okeicalm.simpleJournalEntry.infra.db.keys.USER_ID)
+
+        return _users;
+    }
     override fun `as`(alias: String): Accounts = Accounts(DSL.name(alias), this)
     override fun `as`(alias: Name): Accounts = Accounts(alias, this)
 
@@ -121,7 +135,7 @@ open class Accounts(
     override fun rename(name: Name): Accounts = Accounts(name, null)
 
     // -------------------------------------------------------------------------
-    // Row4 type methods
+    // Row5 type methods
     // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row4<Long?, String?, String?, Int?> = super.fieldsRow() as Row4<Long?, String?, String?, Int?>
+    override fun fieldsRow(): Row5<Long?, String?, String?, Int?, Long?> = super.fieldsRow() as Row5<Long?, String?, String?, Int?, Long?>
 }

@@ -7,7 +7,7 @@ import com.okeicalm.simpleJournalEntry.usecase.account.AccountUpdateUseCase
 import com.okeicalm.simpleJournalEntry.usecase.account.AccountUpdateUseCaseInput
 import org.springframework.stereotype.Component
 
-data class UpdateAccountInput(val id: ID, val code: String, val name: String, val elementType: Int)
+data class UpdateAccountInput(val id: ID, val code: String, val name: String, val elementType: Int, val userId: ID)
 
 @Component
 class UpdateAccountMutation(private val accountUpdateUseCase: AccountUpdateUseCase) : Mutation {
@@ -18,6 +18,7 @@ class UpdateAccountMutation(private val accountUpdateUseCase: AccountUpdateUseCa
                 code = input.code,
                 name = input.name,
                 elementType = input.elementType,
+                userId = input.id.toString().toLong()
             )
         )
         return AccountType(output.account)
