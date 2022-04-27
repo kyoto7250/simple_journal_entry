@@ -12,13 +12,13 @@ data class AccountType(
     val code: String,
     val name: String,
     val elementType: Int,
-    val user_id: ID,
+    val userId: ID,
 ) {
     constructor(account: Account) : this(
         ID(account.id.toString()),
         account.code,
         account.name,
         account.elementType,
-        ID(account.user_id.toString())
+        ID(account.userId.toString())
     )
 }

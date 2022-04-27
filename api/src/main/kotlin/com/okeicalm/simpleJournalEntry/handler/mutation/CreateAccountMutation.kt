@@ -7,7 +7,7 @@ import com.okeicalm.simpleJournalEntry.usecase.account.AccountCreateUseCaseInput
 import com.okeicalm.simpleJournalEntry.usecase.account.AccountCreateUseCase
 import org.springframework.stereotype.Component
 
-data class CreateAccountInput(val code: String, val name: String, val elementType: Int, val user_id: ID)
+data class CreateAccountInput(val code: String, val name: String, val elementType: Int, val userId: ID)
 
 @Component
 class CreateAccountMutation(private val accountCreateUseCase: AccountCreateUseCase) : Mutation {
@@ -17,7 +17,7 @@ class CreateAccountMutation(private val accountCreateUseCase: AccountCreateUseCa
                 code = input.code,
                 name = input.name,
                 elementType = input.elementType,
-                user_id = input.user_id.toString().toLong()
+                userId = input.userId.toString().toLong()
             )
         )
         return AccountType(output.account)

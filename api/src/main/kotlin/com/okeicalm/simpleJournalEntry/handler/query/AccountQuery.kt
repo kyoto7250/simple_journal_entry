@@ -11,7 +11,7 @@ class AccountQuery(private val repository: AccountRepository) : Query {
         return repository.findAll().map { AccountType(it) }
     }
 
-    fun accountsByUserID(user_id: ID): List<AccountType> {
-        return repository.findByUserID(user_id.toString().toLong()).map { AccountType(it) }
+    fun accountsByUserID(userId: ID): List<AccountType> {
+        return repository.findByUserID(userId.toString().toLong()).map { AccountType(it) }
     }
 }
